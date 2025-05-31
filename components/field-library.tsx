@@ -1,11 +1,20 @@
 "use client"
 
-import type React from "react"
-
+import React, { useRef } from "react"
 import { useDrag } from "react-dnd"
 import { Card } from "@/components/ui/card"
 import type { FormField } from "@/lib/store"
-import { Type, AlignLeft, ChevronDown, CheckSquare, Calendar, Mail, Phone, Hash, RadioIcon } from "lucide-react"
+import {
+  Type,
+  AlignLeft,
+  ChevronDown,
+  CheckSquare,
+  Calendar,
+  Mail,
+  Phone,
+  Hash,
+  RadioIcon,
+} from "lucide-react"
 
 const fieldTypes: Array<{
   type: FormField["type"]
@@ -114,8 +123,17 @@ function DraggableField({ fieldType }: { fieldType: (typeof fieldTypes)[0] }) {
 
   const Icon = fieldType.icon
 
+  // Create a ref and apply the drag source to it
+  const cardRef = useRef<HTMLDivElement>(null)
+  drag(cardRef)
+
   return (
-    <Card ref={drag} className={`p-4 cursor-grab hover:shadow-md transition-shadow ${isDragging ? "opacity-50" : ""}`}>
+    <Card
+      ref={cardRef}
+      className={`p-4 cursor-grab hover:shadow-md transition-shadow ${
+        isDragging ? "opacity-50" : ""
+      }`}
+    >
       <div className="flex items-center space-x-3">
         <Icon className="w-5 h-5 text-gray-600" />
         <span className="font-medium">{fieldType.label}</span>
@@ -126,7 +144,7 @@ function DraggableField({ fieldType }: { fieldType: (typeof fieldTypes)[0] }) {
 
 export function FieldLibrary() {
   return (
-    <div className="space-y-2" >
+    <div className="space-y-2">
       <h3 className="font-semibold text-lg mb-4">Field Library</h3>
       {fieldTypes.map((fieldType) => (
         <DraggableField key={fieldType.type} fieldType={fieldType} />
