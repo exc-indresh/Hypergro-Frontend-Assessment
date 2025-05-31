@@ -89,9 +89,10 @@ export function FormCanvas() {
         {currentForm.description && <p className="text-gray-600 mt-2">{currentForm.description}</p>}
       </Card>
 
-      {/* Drop Zone */}
       <div
-        ref={drop}
+        ref={(node) => {
+          if (node) drop(node)
+        }}
         className={`min-h-96 p-6 border-2 border-dashed rounded-lg transition-colors ${
           isOver ? "border-blue-500 bg-blue-50" : "border-gray-300 bg-white"
         }`}

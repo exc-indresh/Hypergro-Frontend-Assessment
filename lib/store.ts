@@ -182,6 +182,7 @@ const defaultTemplates: FormTemplate[] = [
           type: "textarea",
           label: "Additional Feedback",
           placeholder: "Tell us more about your experience",
+          required: false,
           step: 1,
         },
       ],
